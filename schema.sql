@@ -1,0 +1,16 @@
+CREATE DATABASE IF NOT EXISTS diwali_greetings
+  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE diwali_greetings;
+
+CREATE TABLE IF NOT EXISTS responses (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  friend_name VARCHAR(100) NOT NULL,
+  answer_one VARCHAR(500) NOT NULL,
+  answer_two VARCHAR(500) NOT NULL,
+  answer_three VARCHAR(500) NOT NULL,
+  answer_four VARCHAR(500) DEFAULT '',
+  answer_five VARCHAR(500) DEFAULT '',
+  answer_six VARCHAR(500) DEFAULT '',
+  answer_seven VARCHAR(500) DEFAULT '',
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

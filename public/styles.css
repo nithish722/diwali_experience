@@ -1,0 +1,935 @@
+:root {
+  --night: #210d19;
+  --wine: #3a1428;
+  --wine-light: #5a233b;
+  --gold: #e8c78a;
+  --gold-bright: #f8dda5;
+  --ivory: #fff4e7;
+  --rose: #d99a9e;
+  --muted: #d8bdc2;
+  --glass: rgba(255, 241, 228, .075);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--ivory);
+  background: radial-gradient(ellipse at 50% 18%, #471c34 0%, #240c1b 52%, #11050c 100%);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+}
+
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .11;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+}
+
+.ambient {
+  position: fixed;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  filter: blur(110px);
+  opacity: .16;
+  pointer-events: none;
+}
+.ambient-one { background: #bd6b50; top: -160px; left: -120px; }
+.ambient-two { background: #8d3c64; right: -180px; bottom: -150px; }
+
+/* Ornate Golden Indian Mandala Background */
+.mandala-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+.mandala-svg {
+  pointer-events: none;
+  filter: drop-shadow(0 0 18px rgba(248, 211, 132, 0.25));
+}
+.mandala-center {
+  width: min(86vmin, 760px);
+  height: min(86vmin, 760px);
+  opacity: 0.19;
+  animation: mandalaRotate 95s linear infinite;
+}
+.mandala-corner {
+  position: absolute;
+  width: clamp(220px, 32vmin, 380px);
+  height: clamp(220px, 32vmin, 380px);
+  opacity: 0.15;
+}
+.mandala-tl { top: -120px; left: -120px; animation: mandalaRotate 75s linear infinite reverse; }
+.mandala-tr { top: -120px; right: -120px; animation: mandalaRotate 75s linear infinite; }
+.mandala-bl { bottom: -130px; left: -130px; animation: mandalaRotate 85s linear infinite; }
+.mandala-br { bottom: -130px; right: -130px; animation: mandalaRotate 85s linear infinite reverse; }
+
+@keyframes mandalaRotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+#fireworksCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 6;
+}
+
+#experience {
+  position: relative;
+  z-index: 2;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 44px 20px 34px;
+}
+
+.progress {
+  position: fixed;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255,255,255,.08);
+}
+.progress-fill {
+  display: block;
+  width: 16.66%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--rose), var(--gold));
+  transition: width .6s ease;
+}
+
+.scene {
+  position: relative;
+  display: none;
+  width: min(940px, 100%);
+  min-height: calc(100svh - 85px);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  animation: sceneIn .8s ease both;
+  padding: 20px 0 40px;
+}
+.scene.active { display: flex; }
+
+@keyframes sceneIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.scene-kicker {
+  color: var(--gold);
+  font-size: .64rem;
+  letter-spacing: .28em;
+  font-weight: 500;
+  margin: 0 0 14px;
+}
+
+.hero-title, .section-title, .diwali-title, .final-title, .admin-topbar h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  line-height: 1.12;
+  margin: 0;
+}
+.hero-title { font-size: clamp(2.5rem, 6.5vw, 4.6rem); }
+.hero-title em, .section-title em, .diwali-title em, .final-title em, .admin-topbar em, .admin-login-card h2 em {
+  color: var(--gold-bright);
+  font-family: 'Dancing Script', cursive;
+  font-style: normal;
+}
+
+.scene-copy {
+  color: var(--muted);
+  font-size: .9rem;
+  line-height: 1.85;
+  margin: 14px 0 18px;
+}
+
+/* ==========================================================================
+   SCENE 1: REALISTIC HAND-PAINTED TERRACOTTA DIYAS (IMAGE 2 REFERENCE)
+   ========================================================================== */
+.diya-sanctuary {
+  position: relative;
+  width: min(780px, 100%);
+  height: 290px;
+  margin: 6px auto 8px;
+  border-radius: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 18px 16px 14px;
+  background:
+    radial-gradient(ellipse 85% 52% at 50% 82%, rgba(186, 68, 52, 0.34), rgba(88, 22, 48, 0.42) 58%, rgba(16, 8, 28, 0.72) 100%),
+    linear-gradient(180deg, rgba(12, 16, 48, 0.75) 0%, rgba(74, 24, 52, 0.65) 45%, rgba(145, 52, 48, 0.55) 100%);
+  border: 1px solid rgba(255, 214, 153, 0.18);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.48),
+    inset 0 1px 24px rgba(255, 196, 112, 0.08);
+  overflow: visible;
+}
+
+/* Out-of-focus warm golden bokeh lights in the top background like Image 2 */
+.bokeh-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 28px;
+  pointer-events: none;
+  z-index: 0;
+}
+.bokeh {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 200, 95, 0.65) 0%, rgba(240, 125, 42, 0.35) 55%, transparent 75%);
+  filter: blur(6px);
+  opacity: 0.45;
+  animation: bokehPulse 4s ease-in-out infinite alternate;
+}
+.b1 { width: 58px; height: 58px; top: 8px; left: 8%; animation-delay: 0s; }
+.b2 { width: 82px; height: 82px; top: -14px; left: 22%; opacity: 0.6; animation-delay: 0.7s; }
+.b3 { width: 74px; height: 74px; top: 6px; left: 39%; opacity: 0.55; animation-delay: 1.3s; }
+.b4 { width: 52px; height: 52px; top: -8px; left: 53%; opacity: 0.5; animation-delay: 0.4s; }
+.b5 { width: 68px; height: 68px; top: 12px; left: 66%; opacity: 0.52; animation-delay: 1.8s; }
+.b6 { width: 76px; height: 76px; top: -6px; left: 80%; opacity: 0.48; animation-delay: 1.1s; }
+.b7 { width: 46px; height: 46px; top: 24px; left: 14%; opacity: 0.35; animation-delay: 2.1s; }
+.b8 { width: 54px; height: 54px; top: 22px; left: 88%; opacity: 0.4; animation-delay: 0.9s; }
+
+@keyframes bokehPulse {
+  from { transform: scale(0.95); opacity: 0.38; }
+  to { transform: scale(1.06); opacity: 0.68; }
+}
+
+.table-surface-glow {
+  position: absolute;
+  inset: 38% 4% 4% 4%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 60%, rgba(255, 152, 48, 0.48), rgba(224, 78, 42, 0.2) 55%, transparent 78%);
+  filter: blur(18px);
+  opacity: 0.15;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.diya-row {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+}
+.diya-row-back {
+  gap: clamp(32px, 9vw, 95px);
+  margin-bottom: -18px;
+  z-index: 2;
+}
+.diya-row-front {
+  gap: clamp(10px, 3vw, 34px);
+  z-index: 3;
+}
+
+.diya {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.28s ease, filter 0.35s ease;
+  outline: none;
+}
+.diya:hover {
+  transform: translateY(-3px) scale(1.03);
+}
+.diya-back {
+  width: clamp(92px, 15vw, 128px);
+  height: 82px;
+  filter: blur(0.35px) brightness(0.92);
+}
+.diya-front {
+  width: clamp(135px, 24vw, 195px);
+  height: 112px;
+}
+.diya-main {
+  width: clamp(150px, 26vw, 215px);
+  height: 128px;
+  margin: 0 4px 12px;
+}
+
+.diya-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.45));
+  transition: filter 0.4s ease;
+}
+.diya.lit .diya-svg {
+  filter: drop-shadow(0 6px 18px rgba(255, 145, 35, 0.45)) brightness(1.12);
+}
+
+/* Warm orange-amber surface light pool underneath each lit diya (like Image 2) */
+.diya-floor-glow {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 135%;
+  height: 55%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255, 174, 52, 0.75) 0%, rgba(255, 102, 24, 0.38) 48%, transparent 76%);
+  filter: blur(14px);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.diya.lit .diya-floor-glow {
+  opacity: 1;
+}
+
+/* Multi-layered Realistic Oil-Lamp Flame */
+.flame-wrap {
+  position: absolute;
+  z-index: 5;
+  width: 34px;
+  height: 64px;
+  pointer-events: none;
+  transform: translate(-50%, 0);
+}
+
+/* Position flames right on the cotton wick of each diya */
+.diya-back .flame-wrap {
+  left: 50%;
+  bottom: 58%;
+  width: 26px;
+  height: 50px;
+}
+.diya-main .flame-wrap.flame-center {
+  left: 50%;
+  bottom: 52%;
+  width: 36px;
+  height: 68px;
+}
+.diya-front .flame-wrap.flame-spout-right {
+  left: 88.5%;
+  bottom: 54%;
+  width: 34px;
+  height: 64px;
+}
+.diya-front .flame-wrap.flame-spout-left {
+  left: 11.5%;
+  bottom: 54%;
+  width: 34px;
+  height: 64px;
+}
+
+/* Glowing red ember on the wick tip */
+.wick-tip {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: #3d2317;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.diya.lit .wick-tip {
+  background: #ff5400;
+  box-shadow: 0 0 8px 2px #ff7b00;
+}
+
+/* Ambient orange halo around the flame */
+.flame-halo {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  width: 78px;
+  height: 88px;
+  transform: translateX(-50%) scale(0.2);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 185, 70, 0.65) 0%, rgba(255, 115, 20, 0.28) 45%, transparent 72%);
+  filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+/* Outer golden-orange teardrop flame body */
+.flame-outer {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  width: 22px;
+  height: 52px;
+  transform: translateX(-50%) scale(0.15);
+  transform-origin: 50% 92%;
+  border-radius: 50% 50% 38% 38% / 72% 72% 28% 28%;
+  background: linear-gradient(180deg, rgba(255, 110, 15, 0.95) 0%, #ffae2b 35%, #ffe875 75%, rgba(255, 140, 36, 0.85) 100%);
+  filter: blur(0.6px) drop-shadow(0 0 12px #ff921c) drop-shadow(0 -6px 20px rgba(255, 162, 42, 0.8));
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Brilliant white-hot inner core (just like Image 2) */
+.flame-inner {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  width: 13px;
+  height: 38px;
+  transform: translateX(-50%) scale(0.15);
+  transform-origin: 50% 92%;
+  border-radius: 50% 50% 40% 40% / 74% 74% 26% 26%;
+  background: linear-gradient(180deg, #fffdf2 0%, #ffffff 55%, #ffe680 90%, rgba(255, 200, 80, 0.4) 100%);
+  filter: blur(0.3px) drop-shadow(0 0 8px #ffffff);
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Subtle blue oxygen combustion zone at base of wick */
+.flame-blue {
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  width: 11px;
+  height: 10px;
+  transform: translateX(-50%) scale(0.2);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(90, 155, 255, 0.75) 0%, rgba(60, 110, 235, 0.25) 70%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.diya-back .flame-outer { width: 17px; height: 40px; }
+.diya-back .flame-inner { width: 10px; height: 29px; }
+
+.diya.lit .flame-halo {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+.diya.lit .flame-outer {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+  animation: realFlameFlicker 1.35s ease-in-out infinite alternate;
+}
+.diya.lit .flame-inner {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+  animation: realCoreFlicker 1.05s ease-in-out infinite alternate;
+}
+.diya.lit .flame-blue {
+  opacity: 0.9;
+  transform: translateX(-50%) scale(1);
+}
+
+@keyframes realFlameFlicker {
+  0%   { transform: translateX(-50%) scale(1, 1) rotate(-1.5deg); }
+  35%  { transform: translateX(-50%) scale(0.96, 1.05) rotate(1.5deg); }
+  70%  { transform: translateX(-50%) scale(1.03, 0.97) rotate(-2deg); }
+  100% { transform: translateX(-50%) scale(0.98, 1.07) rotate(2deg); }
+}
+@keyframes realCoreFlicker {
+  0%   { transform: translateX(-50%) scale(1, 1) rotate(1deg); }
+  50%  { transform: translateX(-50%) scale(0.95, 1.04) rotate(-1deg); }
+  100% { transform: translateX(-50%) scale(1.02, 0.98) rotate(1.5deg); }
+}
+
+.hint {
+  color: #cbaeb1;
+  font-size: .78rem;
+  letter-spacing: .04em;
+  margin: 12px 0 16px;
+}
+
+.primary-btn, .outline-btn {
+  border: 1px solid rgba(245,211,153,.65);
+  border-radius: 999px;
+  padding: 13px 25px;
+  color: #28131d;
+  background: linear-gradient(120deg, #f1d5a0, #d8a96d);
+  box-shadow: 0 8px 28px rgba(0,0,0,.18);
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  transition: transform .25s, box-shadow .25s;
+}
+.primary-btn:hover, .outline-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(230,184,116,.24);
+}
+.primary-btn span { margin-left: 9px; }
+
+.text-btn, .back-btn {
+  border: 0;
+  background: none;
+  color: var(--gold);
+  font-size: .77rem;
+  padding: 12px;
+  margin-top: 8px;
+}
+.back-btn {
+  position: absolute;
+  left: 0;
+  bottom: 12px;
+  color: #c8aeb4;
+}
+.scene-foot {
+  position: absolute;
+  bottom: 0;
+  font-size: .55rem;
+  letter-spacing: .25em;
+  color: rgba(255,239,220,.35);
+}
+.secret-admin {
+  position: fixed;
+  right: 0;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  background: transparent;
+  z-index: 35;
+  opacity: .02;
+  cursor: pointer;
+}
+.secret-admin-bottom-right {
+  right: 0;
+  bottom: 0;
+}
+.secret-admin-top-right {
+  right: 0;
+  top: 0;
+}
+
+/* ==========================================================================
+   SCENE 2: REALISTIC FIREWORKS & CRACKERS
+   ========================================================================== */
+.section-title { font-size: clamp(2.2rem, 5.8vw, 3.8rem); }
+
+.firework-grid {
+  position: relative;
+  z-index: 8;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 11px;
+  width: 100%;
+  margin: 6px 0 6px;
+}
+
+.firework-card {
+  min-height: 152px;
+  padding: 12px 8px 12px;
+  border: 1px solid rgba(255,224,186,.18);
+  border-radius: 17px;
+  color: var(--ivory);
+  background: linear-gradient(145deg, rgba(255,255,255,.09), rgba(255,255,255,.025));
+  backdrop-filter: blur(12px);
+  transition: transform .25s, border-color .25s, background .25s, box-shadow .25s;
+}
+.firework-card:hover, .firework-card.selected {
+  border-color: var(--gold);
+  transform: translateY(-5px);
+  background: rgba(238,198,137,.14);
+  box-shadow: 0 12px 30px rgba(255, 180, 75, 0.16);
+}
+.firework-card b {
+  display: block;
+  font-size: .73rem;
+  font-weight: 500;
+  margin-top: 6px;
+}
+.firework-card small {
+  display: block;
+  color: #c7aeb2;
+  font-size: .58rem;
+  line-height: 1.45;
+  margin-top: 3px;
+}
+
+.firework-art {
+  height: 74px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: visible;
+}
+.cracker-icon {
+  width: 68px;
+  height: 68px;
+  overflow: visible;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.35));
+}
+.anar-icon {
+  width: 62px;
+  height: 74px;
+}
+.chakra-icon {
+  animation: spin 4.5s linear infinite;
+}
+.firework-card.selected .chakra-icon {
+  animation-duration: 0.45s;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Interactive Stage Area below cards where physical cracker sits */
+.firework-stage {
+  position: relative;
+  z-index: 7;
+  height: 128px;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin: 4px 0 4px;
+  pointer-events: none;
+}
+
+.stage-prop {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* 1. Dual Corner Flower Pots ("27" Crown Anar Cones at Very Bottom-Left & Bottom-Right Corners) */
+.screen-flowerpots {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 7;
+  overflow: hidden;
+}
+.corner-flowerpot {
+  position: absolute;
+  bottom: 22px;
+  width: clamp(82px, 8.5vw, 106px);
+  height: clamp(102px, 11vw, 132px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+.flowerpot-left {
+  left: clamp(20px, 4vw, 68px);
+}
+.flowerpot-right {
+  right: clamp(20px, 4vw, 68px);
+}
+.stage-anar-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 24px rgba(255, 165, 52, 0.65));
+}
+.anar-nozzle-flare {
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0%, #fff099 35%, #ff8800 70%, transparent 100%);
+  box-shadow: 0 0 30px 11px rgba(255, 195, 75, 0.9);
+  animation: nozzlePulse 0.14s ease-in-out infinite alternate;
+}
+@keyframes nozzlePulse {
+  from { transform: translateX(-50%) scale(0.85); opacity: 0.85; }
+  to   { transform: translateX(-50%) scale(1.24); opacity: 1; }
+}
+
+/* 2. Stage Chakra (Spinning 3D Ground Chakri) */
+.prop-chakra {
+  width: 110px;
+  height: 90px;
+  perspective: 320px;
+  animation: chakraWander 2.2s ease-in-out infinite alternate;
+}
+.chakra-floor-glow {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 170px;
+  height: 55px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255, 230, 110, 0.9) 0%, rgba(255, 120, 20, 0.55) 50%, transparent 75%);
+  filter: blur(10px);
+}
+.chakra-wheel-3d {
+  width: 86px;
+  height: 86px;
+  transform: rotateX(56deg);
+  transform-style: preserve-3d;
+}
+.stage-chakra-svg {
+  width: 100%;
+  height: 100%;
+  animation: spin 0.18s linear infinite;
+  filter: drop-shadow(0 0 16px #ffbe3b);
+}
+@keyframes chakraWander {
+  0%   { transform: translateX(-28px) translateY(0); }
+  50%  { transform: translateX(24px) translateY(-6px); }
+  100% { transform: translateX(-12px) translateY(3px); }
+}
+
+/* 3. Dual Sparkler Sticks tucked into the Far Left & Far Right Corners of the Screen */
+.screen-sparklers {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 7;
+  overflow: hidden;
+}
+.sparkler-stick {
+  position: absolute;
+  bottom: 14%;
+  display: flex;
+  align-items: center;
+  height: 14px;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.65));
+}
+.sparkler-left {
+  left: -22px;
+  width: clamp(92px, 11vw, 142px);
+  transform-origin: left center;
+  transform: rotate(-24deg);
+  animation: leftSparklerWave 2.8s ease-in-out infinite alternate;
+}
+.sparkler-right {
+  right: -22px;
+  width: clamp(92px, 11vw, 142px);
+  flex-direction: row-reverse;
+  transform-origin: right center;
+  transform: rotate(24deg);
+  animation: rightSparklerWave 2.8s ease-in-out infinite alternate;
+}
+.wire-handle {
+  flex: 0 0 38%;
+  height: 3.5px;
+  background: linear-gradient(180deg, #e5e7eb, #6b7280, #374151);
+  border-radius: 2px;
+}
+.coated-rod {
+  position: relative;
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.06) 0 2px, transparent 2px 5px),
+    linear-gradient(180deg, #78716c 0%, #44403c 55%, #292524 100%);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.25);
+}
+.burn-ember {
+  position: absolute;
+  top: 50%;
+  width: 24px;
+  height: 24px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0%, #fff3a1 38%, #ff7b00 72%, transparent 100%);
+  box-shadow:
+    0 0 20px 6px #ffd43b,
+    0 0 42px 14px rgba(255, 120, 20, 0.75);
+}
+.sparkler-left .burn-ember {
+  right: -12px;
+  transform: translate(0, -50%);
+}
+.sparkler-right .burn-ember {
+  left: -12px;
+  transform: translate(0, -50%);
+}
+
+@keyframes leftSparklerWave {
+  0%   { transform: rotate(-19deg) translateY(6px); }
+  50%  { transform: rotate(-11deg) translateY(-8px); }
+  100% { transform: rotate(-16deg) translateY(2px); }
+}
+@keyframes rightSparklerWave {
+  0%   { transform: rotate(19deg) translateY(6px); }
+  50%  { transform: rotate(11deg) translateY(-8px); }
+  100% { transform: rotate(16deg) translateY(2px); }
+}
+
+.firework-hint {
+  position: relative;
+  z-index: 8;
+  min-height: 22px;
+  color: var(--gold-bright);
+  font-size: .78rem;
+  margin: 0 0 10px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.65);
+}
+
+/* ==========================================================================
+   SCENE 3, 4, 5, 6 & ADMIN
+   ========================================================================== */
+.question-card {
+  width: min(740px, 100%);
+  padding: 24px 26px;
+  border: 1px solid rgba(255,226,190,.17);
+  border-radius: 22px;
+  background: rgba(255,245,235,.055);
+  text-align: left;
+  backdrop-filter: blur(18px);
+}
+.question-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 18px;
+}
+.question-field {
+  display: flex;
+  flex-direction: column;
+}
+.question-full {
+  grid-column: span 2;
+}
+.field-label { display: block; color: #f1d7b1; font-size: .73rem; margin: 0 0 6px; }
+@media (max-width: 700px) {
+  .question-grid { grid-template-columns: 1fr; }
+  .question-full { grid-column: span 1; }
+}
+input, textarea {
+  width: 100%;
+  padding: 12px 14px;
+  color: var(--ivory);
+  background: rgba(15,5,12,.28);
+  border: 1px solid rgba(255,231,204,.18);
+  border-radius: 10px;
+  outline: none;
+  font-size: .78rem;
+  resize: vertical;
+}
+input:focus, textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(232,199,138,.08);
+}
+input::placeholder, textarea::placeholder { color: #a88d96; }
+.form-submit { display: block; margin: 20px auto 0; }
+.form-status { min-height: 18px; color: var(--gold); text-align: center; font-size: .74rem; margin-top: 10px; }
+
+.gift-button { position: relative; width: 210px; height: 190px; margin: 25px auto 5px; border: 0; background: none; }
+.gift-box {
+  position: absolute; bottom: 12px; left: 23px; width: 164px; height: 112px;
+  background: linear-gradient(110deg,#9c3d43,#d36b58 45%,#8f3444);
+  border: 1px solid #e8b77d; border-radius: 5px 5px 13px 13px;
+  box-shadow: 0 18px 35px rgba(0,0,0,.3);
+}
+.gift-box:before { content: ""; position: absolute; left: 67px; top: 0; height: 100%; width: 29px; background: linear-gradient(90deg,#f6d99c,#c18b4c,#f8dfa7); }
+.gift-box:after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 15px; background: rgba(255,221,157,.25); }
+.gift-lid {
+  position: absolute; z-index: 3; top: 45px; left: 15px; width: 180px; height: 35px;
+  border: 1px solid #f0c98c; border-radius: 6px;
+  background: linear-gradient(#e88b6a,#ad4851);
+  transform-origin: left bottom; transition: transform .8s;
+}
+.gift-bow { position: absolute; z-index: 4; top: 19px; left: 87px; color: #f8dca3; font-size: 48px; transition: .8s; }
+.gift-sweet { position: absolute; z-index: 2; color: #f7d28a; font-size: 25px; opacity: 0; bottom: 75px; transition: 1s; text-shadow: 0 0 14px #f3bd6b; }
+.sweet-one { left: 50px; } .sweet-two { left: 90px; } .sweet-three { left: 140px; }
+.gift-button.open .gift-lid { transform: translate(-18px,-45px) rotate(-25deg); }
+.gift-button.open .gift-bow { transform: translateY(-75px) rotate(30deg); opacity: 0; }
+.gift-button.open .gift-sweet { opacity: 1; transform: translateY(-55px); }
+.gift-message { width: min(440px,100%); animation: sceneIn .6s ease both; }
+.gift-message h3 { font-family: 'Playfair Display',serif; font-size: 1.7rem; font-weight: 400; color: var(--gold-bright); }
+.gift-message p { color: var(--muted); font-size: .8rem; line-height: 1.8; }
+.sweet-row { font-size: 2rem; letter-spacing: 12px; }
+
+.big-diya { margin: 18px 0 10px; display: flex; justify-content: center; animation: float 3s ease-in-out infinite; }
+.big-ornate-diya { width: 175px; height: 110px; pointer-events: none; }
+.big-ornate-diya .flame-wrap.flame-center { left: 50%; bottom: 52%; width: 36px; height: 68px; }
+@keyframes float { 50% { transform: translateY(-9px); } }
+.diwali-title { font-size: clamp(3.6rem,10vw,7rem); }
+.wish-message, .final-message { color: #e5cbd0; font-size: .9rem; line-height: 2.1; margin: 24px 0; }
+.wish-signature, .final-signature { color: var(--gold); font-family: 'Dancing Script',cursive; font-size: 1.7rem; margin: 0 0 28px; }
+.heart-orbit { width: 130px; height: 120px; display: grid; place-items: center; position: relative; margin: 0 auto 20px; color: #f3c9a0; }
+.heart-orbit span { font-size: 6rem; color: #dc8794; text-shadow: 0 0 30px #df7186; animation: heartbeat 1.7s infinite; }
+.heart-orbit i, .heart-orbit b { position: absolute; color: var(--gold); font-size: 1.6rem; font-style: normal; }
+.heart-orbit i { top: 0; right: 0; } .heart-orbit b { bottom: 5px; left: 0; }
+@keyframes heartbeat { 50% { transform: scale(1.1); } }
+.final-title { font-size: clamp(2.5rem,7vw,4.8rem); }
+.final-message { margin: 22px 0; }
+.final-signature span { color: #e78d9b; }
+.outline-btn { color: var(--gold-bright); background: transparent; box-shadow: none; }
+.hidden { display: none !important; }
+
+.admin-overlay { position: fixed; z-index: 50; inset: 0; display: grid; place-items: center; padding: 20px; background: rgba(10,3,8,.8); backdrop-filter: blur(15px); }
+.admin-login-card { width: min(390px,100%); position: relative; padding: 38px 30px 25px; text-align: center; border: 1px solid rgba(239,203,151,.25); border-radius: 22px; background: linear-gradient(145deg,#482039,#24101d); box-shadow: 0 30px 90px rgba(0,0,0,.4); }
+.close-admin { position: absolute; top: 12px; right: 17px; border: 0; background: none; color: var(--ivory); font-size: 1.7rem; }
+.admin-lock { display: block; color: var(--gold); font-size: 1.5rem; margin-bottom: 14px; }
+.admin-login-card h2 { font-family: 'Playfair Display',serif; font-size: 2.2rem; font-weight: 400; }
+.admin-subtitle { color: var(--muted); font-size: .75rem; margin: 10px 0 22px; }
+.admin-login-card input { margin: 6px 0; }
+.admin-login-card .primary-btn { width: 100%; margin-top: 12px; }
+.admin-dashboard { position: relative; z-index: 30; min-height: 100svh; padding: clamp(25px,6vw,70px); background: radial-gradient(ellipse at top right,#54233a,#210d19 65%); }
+.admin-topbar { display: flex; justify-content: space-between; align-items: center; gap: 20px; max-width: 1000px; margin: auto; }
+.admin-topbar h1 { font-size: clamp(2.2rem,5vw,3.5rem); }
+.admin-dashboard-copy { max-width: 1000px; margin: 14px auto 28px; color: var(--muted); font-size: .85rem; }
+.admin-stats { max-width: 1000px; margin: 0 auto 25px; display: flex; align-items: baseline; gap: 12px; color: var(--muted); }
+.admin-stats strong { color: var(--gold); font-family: 'Playfair Display',serif; font-size: 2.8rem; }
+.responses-list { max-width: 1000px; margin: auto; display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 15px; }
+.response-card { padding: 20px; border: 1px solid rgba(255,224,186,.17); border-radius: 16px; background: rgba(255,255,255,.055); }
+.response-card h3 { color: var(--gold-bright); font-family: 'Playfair Display',serif; font-size: 1.35rem; font-weight: 400; margin: 0 0 5px; }
+.response-card time { color: #b99da4; font-size: .65rem; }
+.response-card p { color: #ead6d8; font-size: .77rem; line-height: 1.7; overflow-wrap: anywhere; }
+.response-card b { color: var(--gold); font-weight: 500; }
+.empty-state { color: var(--muted); font-size: .85rem; }
+.dashboard-back { position: static; display: block; margin: 35px auto 0; }
+
+@media (max-width: 700px) {
+  #experience { padding: 34px 12px 28px; }
+  .scene { min-height: calc(100svh - 65px); }
+  .diya-sanctuary { height: 225px; padding: 12px 6px 8px; }
+  .diya-row-back { gap: 14px; margin-bottom: -14px; }
+  .diya-row-front { gap: 4px; }
+  .diya-back { width: 78px; height: 66px; }
+  .diya-front { width: 108px; height: 88px; }
+  .diya-main { width: 122px; height: 102px; margin: 0 2px 8px; }
+  .firework-grid { grid-template-columns: repeat(2, minmax(0,1fr)); max-width: 470px; }
+  .firework-card { min-height: 132px; }
+  .heart-card { grid-column: span 2; }
+  .question-card { padding: 18px; }
+  .scene-copy { font-size: .82rem; }
+  .back-btn { bottom: 0; }
+  .admin-topbar { align-items: flex-start; flex-direction:column; }
+  .corner-flowerpot { width: 64px; height: 82px; bottom: 12px; }
+  .flowerpot-left { left: 8px; }
+  .flowerpot-right { right: 8px; }
+  .sparkler-left, .sparkler-right { bottom: 12%; width: 85px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *:before, *:after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}

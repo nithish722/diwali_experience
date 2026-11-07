@@ -1,0 +1,4 @@
+node_modules/
+.env
+responses.json
+.DS_Store
